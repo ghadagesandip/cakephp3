@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
  * Users Controller
@@ -11,6 +12,28 @@ use App\Controller\AppController;
 class UsersController extends AppController
 {
 
+    public function beforeFilter(Event $event){
+        $this->Auth->allow('register');
+    }
+
+    public function login(){
+        if($this->request->is('Post')){
+            $user = $this->Auth->identify();
+            if($user){
+                $this->Auth->setUser($user);
+                return $this->redirect($this->Auth->redirectUrl());
+            }else{
+                $this->Flash->error('Invalid login details!!!','default',[],'auth');
+            }
+        }
+    }
+
+    public function logout()
+    {
+        return $this->redirect($this->Auth->logout());
+    }
+
+
     /**
      * Index method
      *
@@ -18,6 +41,7 @@ class UsersController extends AppController
      */
     public function index()
     {
+        $data = $this->Users->findByFirstName('sandip');
         $this->set('users', $this->paginate($this->Users));
         $this->set('_serialize', ['users']);
     }
@@ -50,9 +74,27 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $this->request->data);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller' => 'Users','action' => 'index']);
             } else {
                 $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            }
+        }
+        $this->set(compact('user'));
+        $this->set('_serialize', ['user']);
+    }
+
+    public function register()
+    {
+        $user = $this->Users->newEntity();
+        if ($this->request->is('post')) {
+            $user = $this->Users->patchEntity($user, $this->request->data);
+            $this->Users->active = true;
+            if ($this->Users->save($user)) {
+                $this->Auth->setUser($user->toArray());
+                $this->Flash->success(__('you are registered successfully.'));
+                return $this->redirect(['controller' => 'Dashboards','action' => 'index']);
+            } else {
+                $this->Flash->error(__('Couldn\'t register. Please, try again.'));
             }
         }
         $this->set(compact('user'));

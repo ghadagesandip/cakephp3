@@ -26,7 +26,7 @@ class UsersTable extends Table
         parent::initialize($config);
 
         $this->table('users');
-        $this->displayField('id');
+        $this->displayField('name');
         $this->primaryKey('id');
         $this->addBehavior('Timestamp');
         $this->hasMany('Bookmarks', [
@@ -84,4 +84,6 @@ class UsersTable extends Table
         $rules->add($rules->isUnique(['email']));
         return $rules;
     }
+
+
 }
