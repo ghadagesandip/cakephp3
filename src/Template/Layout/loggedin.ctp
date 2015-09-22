@@ -40,7 +40,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <?php echo $this->Html->link('Dashboard',array('controller'=>'Dashboards','action'=>'index'));?>
     </div>
     <div class="header-help">
-        <span>Hi <?php echo $this->request->session()->read('Auth.User.first_name'); ?></span>
+        <span>Hi <?php echo $this->request->session()->read('Auth.User.name'); ?></span>
         <span><a href="<?php echo $this->Url->build(array('controller'=>'users','action'=>'logout'))?>">logout</a></span>
     </div>
 </header>

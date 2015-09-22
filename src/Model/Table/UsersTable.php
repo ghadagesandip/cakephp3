@@ -85,5 +85,9 @@ class UsersTable extends Table
         return $rules;
     }
 
-
+    public function findActive(Query $query, array $options){
+        return $query->where([
+            'Users.active'=>1
+        ]);
+    }
 }

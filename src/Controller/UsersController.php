@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+use PhpParser\Node\Stmt\Use_;
 
 /**
  * Users Controller
@@ -12,11 +13,22 @@ use Cake\Event\Event;
 class UsersController extends AppController
 {
 
+    public function initialize(){
+        parent::initialize();
+        $this->loadComponent('FileUpload',[
+            'userModel'=>'User',
+            'allowedTypes'=>array('jpeg','png'),
+            'uploadDir'=>'profilePics'
+        ]);
+    }
     public function beforeFilter(Event $event){
         $this->Auth->allow('register');
     }
 
     public function login(){
+        if($this->Auth->user()){
+            $this->redirect($this->Auth->redirectUrl());
+        }
         if($this->request->is('Post')){
             $user = $this->Auth->identify();
             if($user){
@@ -41,7 +53,9 @@ class UsersController extends AppController
      */
     public function index()
     {
-        $data = $this->Users->findByFirstName('sandip');
+        $this->paginate = array(
+            'fields'=>array('id','first_name','last_name','gender','email','created','updated')
+        );
         $this->set('users', $this->paginate($this->Users));
         $this->set('_serialize', ['users']);
     }
@@ -55,6 +69,7 @@ class UsersController extends AppController
      */
     public function view($id = null)
     {
+
         $user = $this->Users->get($id, [
             'contain' => ['Bookmarks']
         ]);
@@ -115,6 +130,7 @@ class UsersController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->data);
+            pr($this->request->data);exit;
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
                 return $this->redirect(['action' => 'index']);
