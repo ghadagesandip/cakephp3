@@ -1,0 +1,25 @@
+{
+  "name": "sandip/cake3.x-file-upload",
+  "type": "cakephp-plugin",
+  "description": "File upload component for cakePHP 3.x",
+  "keywords": ["cakephp", "cakephp 3.x", "cakephp 3.x ", "cakephp file upload component", "cakephp file upload plugin"],
+  "homepage": "https://github.com/ghadagesandip/cake3.x-fileupload-component",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Sandip Ghadge",
+      "email": "ghadagesandip@gmail.com",
+      "role": "Developer",
+      "homepage": "https://github.com/cakephp/bake/graphs/contributors"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=5.5.9"
+  },
+  "autoload": {
+    "psr-4": {
+      "Sandip\\FileUpload\\": "src"
+    }
+  }
+}
