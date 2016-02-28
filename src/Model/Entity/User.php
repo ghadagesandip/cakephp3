@@ -33,12 +33,4 @@ class User extends Entity
         return $this->_properties['first_name'].' '.$this->_properties['last_name'];
     }
 
-    protected function _getGender(){
-        if($this->_properties['gender']==1){
-            return 'Male';
-        }else{
-            return 'female';
-        }
-    }
-
 }

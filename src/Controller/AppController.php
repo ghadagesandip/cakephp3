@@ -54,10 +54,11 @@ class AppController extends Controller
         ]);
     }
 
+
     public  function beforeFilter(Event $event){
         parent::beforeFilter($event);
         if($this->Auth->user('id')){
-            $this->layout = 'loggedin';
+            $this->viewBuilder()->layout('loggedin');
         }
     }
 }

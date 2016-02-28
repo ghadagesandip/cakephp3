@@ -15,13 +15,12 @@ class UsersController extends AppController
 
     public function initialize(){
         parent::initialize();
-        $this->loadComponent('FileUpload',[
-            'userModel'=>'User',
-            'allowedTypes'=>array('jpeg','png'),
-            'uploadDir'=>'profilePics'
-        ]);
     }
+
+
+
     public function beforeFilter(Event $event){
+        parent::beforeFilter($event);
         $this->Auth->allow('register');
     }
 

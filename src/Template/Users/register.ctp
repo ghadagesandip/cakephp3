@@ -1,8 +1,9 @@
+<?php $this->assign('title','Register')?>
 <div class="actions columns large-2 medium-3">
-    <h3><?= __('Actions') ?></h3>
-    <ul class="side-nav">
-        <li><?= $this->Html->link(__('Back Login'), ['action' => 'login']) ?></li>
-    </ul>
+
+
+    <?= $this->Html->link(__('Back Login'), ['action' => 'login']) ?>
+
 </div>
 <div class="users form large-10 medium-9 columns">
     <?= $this->Form->create($user) ?>
