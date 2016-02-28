@@ -17,6 +17,7 @@ namespace App\Controller;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 
+
 /**
  * Application Controller
  *
@@ -57,6 +58,7 @@ class AppController extends Controller
 
     public  function beforeFilter(Event $event){
         parent::beforeFilter($event);
+        $this->Auth->allow('*');
         if($this->Auth->user('id')){
             $this->viewBuilder()->layout('loggedin');
         }

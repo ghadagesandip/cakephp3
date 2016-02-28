@@ -1,9 +1,8 @@
 <?php
 namespace App\Controller;
 
-use App\Controller\AppController;
 use Cake\Event\Event;
-use PhpParser\Node\Stmt\Use_;
+
 
 /**
  * Users Controller
@@ -15,6 +14,14 @@ class UsersController extends AppController
 
     public function initialize(){
         parent::initialize();
+        $this->loadComponent('FileUpload.FileUpload',[
+            'defaultThumb'=>[
+                'small'=>[30,30],
+                'medium' => [90,90 ]
+            ],
+            'uploadDir' =>WWW_ROOT.'uploads'.DS.'profile_pic'.DS,
+            'maintainAspectRation'=>true
+        ]);
     }
 
 
@@ -85,6 +92,7 @@ class UsersController extends AppController
     {
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
+            $this->request->data['profile_pic'] = $this->FileUpload->doFileUpload($this->request->data['profile_pic']);
             $user = $this->Users->patchEntity($user, $this->request->data);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));

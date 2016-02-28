@@ -201,4 +201,5 @@ DispatcherFactory::add('ControllerFactory');
  */
 Type::build('datetime')->useLocaleParser();
 
-Plugin::load('Migrations');
+Plugin::load('ContactManager', ['routes' => true,'autoload'=>true]);
+Plugin::load('FileUpload', ['autoload'=>true]);
