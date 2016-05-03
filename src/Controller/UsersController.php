@@ -14,14 +14,14 @@ class UsersController extends AppController
 
     public function initialize(){
         parent::initialize();
-//        $this->loadComponent('FileUpload.FileUpload',[
-//            'defaultThumb'=>[
-//                'small'=>[30,30],
-//                'medium' => [90,90 ]
-//            ],
-//            'uploadDir' =>WWW_ROOT.'uploads'.DS.'profile_pic'.DS,
-//            'maintainAspectRation'=>true
-//        ]);
+        $this->loadComponent('FileUpload.FileUpload',[
+            'defaultThumb'=>[
+                'small'=>[30,30],
+                'medium' => [90,90 ]
+            ],
+            'uploadDir' =>WWW_ROOT.'uploads'.DS.'profile_pic'.DS,
+            'maintainAspectRation'=>true
+        ]);
     }
 
 
